@@ -2,10 +2,22 @@ task:
   name: Yocto Build
   container:
     image: ubuntu:22.04
+  language: shell
   install_script:
     - apt-get update
+    - apt-get install -y locales
+    - locale-gen en_US.UTF-8
+    - update-locale LANG=en_US.UTF-8
     - apt-get install -y git build-essential diffstat texinfo gawk chrpath socat doxygen dos2unix python3 bison flex libssl-dev u-boot-tools curl python3-distutils g++ libc6-dev-i386 jq git-lfs pigz zstd liblz4-tool cpio file lz4
   script:
+    # Export locale settings
+    - export LC_ALL="en_US.UTF-8"
+    - export LC_CTYPE="en_US.UTF-8"
+    - export LC_NUMERIC="en_US.UTF-8"
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US.UTF-8
+    - ulimit -n 4096
+    # Build steps
     - git clone https://git.ti.com/git/arago-project/oe-layersetup.git tisdk
     - cd tisdk
     - ./oe-layertool-setup.sh -f configs/processor-sdk/processor-sdk-kirkstone-chromium-09.02.01.10-config.txt
