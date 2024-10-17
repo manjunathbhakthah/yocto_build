@@ -5,7 +5,7 @@ task:
   language: shell
   install_script:
     - apt-get update
-    - apt-get install -y locales wget
+    - apt-get install -y locales wget  # Ensure wget is installed
     - locale-gen en_US.UTF-8
     - update-locale LANG=en_US.UTF-8
     - apt-get install -y git build-essential diffstat texinfo gawk chrpath socat doxygen dos2unix python3 bison flex libssl-dev u-boot-tools curl python3-distutils g++ libc6-dev-i386 jq git-lfs pigz zstd liblz4-tool cpio file lz4
