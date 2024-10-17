@@ -3,7 +3,10 @@ task:
   container:
     image: ubuntu:22.04  # Use the appropriate base image for your build
   cache:
-    - .cache
+    folders:
+      - .cache
+      - tisdk/sources   # Caching the sources folder
+      - tisdk/build     # Caching the build folder
   env:
     OEBASE: "/tmp/cirrus-ci-build/tisdk"
   install:
