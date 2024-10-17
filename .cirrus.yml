@@ -8,7 +8,7 @@ task:
   script:
     - git clone https://git.ti.com/git/arago-project/oe-layersetup.git tisdk
     - cd tisdk
-    - ./oe-layertool-setup.sh -f configs/processor-sdk-kirkstone-chromium-09.02.01.10-config.txt
+    - ./oe-layertool-setup.sh -f configs/processor-sdk/processor-sdk-kirkstone-chromium-09.02.01.10-config.txt
     - cd build
     - . conf/setenv
     - MACHINE=am62pxx-evm bitbake -k tisdk-default-image
