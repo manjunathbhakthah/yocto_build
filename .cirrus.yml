@@ -1,0 +1,53 @@
+task:
+  name: Yocto Build for AM62P Arago
+  container:
+    image: ubuntu:22.04  # Ubuntu 22.04 base image
+  env:
+    LC_ALL: "en_US.UTF-8"
+    LANG: "en_US.UTF-8"
+    LANGUAGE: "en_US.UTF-8"
+  install_script:
+    # Install necessary dependencies for Yocto build
+    - apt-get update
+    - apt-get install -y \
+        git \
+        build-essential \
+        diffstat \
+        texinfo \
+        gawk \
+        chrpath \
+        socat \
+        doxygen \
+        dos2unix \
+        python3 \
+        bison \
+        flex \
+        libssl-dev \
+        u-boot-tools \
+        mono-devel \
+        mono-complete \
+        curl \
+        python3-distutils \
+        repo \
+        pseudo \
+        python3-sphinx \
+        g++ \
+        libc6-dev-i386 \
+        jq \
+        git-lfs \
+        pigz \
+        zstd \
+        liblz4-tool \
+        cpio \
+        file \
+        lz4
+  script:
+    # Clone the Arago project
+    - git clone https://git.ti.com/git/arago-project/oe-layersetup.git tisdk
+    - cd tisdk
+    # Run the layer tool setup with the config file
+    - ./oe-layertool-setup.sh -f configs/processor-sdk/processor-sdk-kirkstone-chromium-09.02.01.10-config.txt
+    - cd build
+    - . conf/setenv
+    # Start the build process
+    - MACHINE=am62pxx-evm bitbake -k tisdk-default-image
